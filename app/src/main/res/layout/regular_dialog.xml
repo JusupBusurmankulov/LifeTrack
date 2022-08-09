@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingBottom="15dp">
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@color/purple"
+        android:gravity="center_horizontal"
+        android:paddingVertical="20dp"
+        android:text="Регулярность"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:layout_marginTop="37dp"
+        android:id="@+id/everyDayRadio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:checked="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple"
+            android:text="Каждый день"
+            android:textColor="@color/purple" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple"
+            android:text="Каждую неделю"
+            android:textColor="@color/purple" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple"
+            android:text="Каждый месяц"
+            android:textColor="@color/purple" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple"
+            android:text="Каждый год"
+            android:textColor="@color/purple" />
+
+
+    </RadioGroup>
+    <TextView
+        android:id="@+id/tv_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Отменить"
+        android:layout_gravity="end"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="18sp"
+        android:textColor="@color/purple"/>
+
+
+</LinearLayout>
+
+
