@@ -1,5 +1,6 @@
 package com.example.lifetrack
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -12,11 +13,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.DatePicker
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import com.example.lifetrack.databinding.FragmentCreateTaskBinding
+import com.example.lifetrack.databinding.RegularDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 
@@ -33,6 +34,26 @@ class CreateTaskFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun onDateSet(
+            view: DatePicker, year: Int, monthOfYear: Int,
+            dayOfMonth: Int
+        ) {
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateDateInView()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun updateDateInView() {
+        val myFormat = "MM.dd.yyyy"
+        val sdf = SimpleDateFormat(myFormat, Locale.ENGLISH)
+        binding.btnCalendar.text = sdf.format(cal.getTime())
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,31 +67,27 @@ class CreateTaskFragment : BottomSheetDialogFragment() {
     }
 
 
-
-
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initClicker() {
         binding.btnCalendar.setOnClickListener {
-            val datePickerFragment = DatePickerFragment()
-            requireActivity().supportFragmentManager.setFragmentResultListener(
-                "myKey",
-                viewLifecycleOwner
-            ) { resultKey, bundle ->
-                if (resultKey == "myKey") {
-                    val date = bundle.getString("key")
-                    binding.btnCalendar.text = date
+            DatePickerDialog(
+                requireContext(),
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH),
 
-                }
-            }
-            datePickerFragment.show(requireActivity().supportFragmentManager, "TAG")
-
+                ).show()
         }
         binding.btnRegular.setOnClickListener {
             showRegularDialog()
+
+
         }
 
 
     }
+
 
     private fun showRegularDialog() {
         val dialog = Dialog(requireContext())
@@ -82,11 +99,18 @@ class CreateTaskFragment : BottomSheetDialogFragment() {
         val inflater = LayoutInflater.from(context)
         val registrationDialog: View = inflater.inflate(R.layout.regular_dialog, null)
         dialog.setContentView(registrationDialog)
+        RegularDialogBinding.inflate(layoutInflater).tvEveryDay.setOnClickListener {
+
+        }
+
 
         val tvCancel: TextView = registrationDialog.findViewById(R.id.tv_stop)
         tvCancel.setOnClickListener {
             dialog.dismiss()
+
+
         }
+
 
     }
 

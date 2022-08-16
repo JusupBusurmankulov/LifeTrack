@@ -29,8 +29,6 @@ class HomeFragment : Fragment() {
                 val dialog = CreateTaskFragment()
                 dialog.show(requireActivity().supportFragmentManager, "")
             }
-
-
         }
     }
 
